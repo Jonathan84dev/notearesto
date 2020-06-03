@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RestaurantRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -51,7 +52,8 @@ class Restaurant
     private $reviews;
 
     public function __construct()
-    {
+    {   
+        $this->setCreatedAt(new \DateTime());
         $this->restaurantPictures = new ArrayCollection();
         $this->reviews = new ArrayCollection();
     }
@@ -170,4 +172,5 @@ class Restaurant
 
         return $this;
     }
+    
 }
