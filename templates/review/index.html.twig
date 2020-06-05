@@ -1,20 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ReviewController!{% endblock %}
+{% block title %}Review index{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Review index</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Message</th>
+                <th>Rating</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for review in reviews %}
+            <tr>
+                <td>{{ review.id }}</td>
+                <td>{{ review.message }}</td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.createdAt ? review.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('review_show', {'id': review.id}) }}">show</a>
+                    <a href="{{ path('review_edit', {'id': review.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Symfony/notaresto/src/Controller/ReviewController.php'|file_link(0) }}">src/Controller/ReviewController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Symfony/notaresto/templates/review/index.html.twig'|file_link(0) }}">templates/review/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <a href="{{ path('review_new') }}">Create new</a>
 {% endblock %}

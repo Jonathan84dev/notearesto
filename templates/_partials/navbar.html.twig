@@ -12,10 +12,10 @@
                     Restaurants
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Voir mes restaurants</a>
-                    <a class="dropdown-item" href="#">Voir tous les restaurants</a>
+                    <a class="dropdown-item" href="{{ path('restaurant_index') }}">Voir mes restaurants</a>
+                    <a class="dropdown-item" href="{{ path('restaurant_index') }}">Voir tous les restaurants</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Créer un restaurant</a>
+                    <a class="dropdown-item" href="{{ path('restaurant_new') }}">Créer un restaurant</a>
                 </div>
             </li>
 
@@ -24,7 +24,7 @@
                     Utilisateurs
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Voir tous les utilisateurs</a>
+                    <a class="dropdown-item" href="{{ path('user_index') }}">Voir tous les utilisateurs</a>
                 </div>
             </li>
         </ul>

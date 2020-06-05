@@ -182,7 +182,11 @@ class Restaurant
             $sum += $review->getRating();
             $total++;
         }
-        return $sum/$total;
-    }
+
+        if ($total > 0) {
+            return $sum/$total;
+        }
     
+        return 0;  
+    }
 }

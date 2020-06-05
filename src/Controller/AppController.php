@@ -7,6 +7,7 @@ use App\Entity\Review;
 use App\Repository\RestaurantRepository;
 use App\Repository\ReviewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AppController extends AbstractController{
@@ -45,6 +46,15 @@ class AppController extends AbstractController{
     ]);
 
     }
+
+    /**
+    * @Route("/search", name="app_search", methods={"GET"})
+    * @param Request $request
+    */
+    public function search(Request $request) {
+
+}
+
 
     /* public function index(RestaurantRepository $restaurantRepository) {
         
