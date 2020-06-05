@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ReviewRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,9 +41,20 @@ class Review
      */
     private $restaurant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Review::class, inversedBy="childs")
+     */
+    private $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="parent")
+     */
+    private $childs;
+
     public function __construct()
     {
         $this->setCreatedAt(new DateTime());
+        $this->childs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,6 +106,49 @@ class Review
     public function setRestaurant(?Restaurant $restaurant): self
     {
         $this->restaurant = $restaurant;
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getChilds(): Collection
+    {
+        return $this->childs;
+    }
+
+    public function addChild(self $child): self
+    {
+        if (!$this->childs->contains($child)) {
+            $this->childs[] = $child;
+            $child->setParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(self $child): self
+    {
+        if ($this->childs->contains($child)) {
+            $this->childs->removeElement($child);
+            // set the owning side to null (unless already changed)
+            if ($child->getParent() === $this) {
+                $child->setParent(null);
+            }
+        }
 
         return $this;
     }
